@@ -5,13 +5,6 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-/**
- * @ProjectName: my-test
- * @Author: xwy
- * @Description:
- * @Date: 2020/2/25
- * @Version: 1.0
- */
 public class TripalCalculateTest {
 
     @Test
