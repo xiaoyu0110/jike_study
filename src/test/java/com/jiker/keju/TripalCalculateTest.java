@@ -3,6 +3,7 @@ package com.jiker.keju;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
 public class TripalCalculateTest {
@@ -42,7 +43,7 @@ public class TripalCalculateTest {
         String s = null;
         try {
             s = tripalCalculate.calculateTaxiFree("src/main/resources/testData.txt");
-        } catch (NoSuchFieldException e) {
+        } catch (NoSuchFieldException | IOException e) {
             e.printStackTrace();
         }
         System.out.println(s);

@@ -1,5 +1,7 @@
 package com.jiker.keju;
 
+import java.io.IOException;
+
 public class AppRunner {
 
     public static void main(String[] args) {
@@ -13,7 +15,7 @@ public class AppRunner {
         String receipt = "";
         try {
             receipt = tripalCalculate.calculateTaxiFree("src/main/resources/"+testDataFile);
-        } catch (NoSuchFieldException e) {
+        } catch (NoSuchFieldException | IOException e) {
             e.printStackTrace();
         }
 

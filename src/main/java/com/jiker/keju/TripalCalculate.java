@@ -1,5 +1,6 @@
 package com.jiker.keju;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -11,17 +12,15 @@ public class TripalCalculate {
     private static final BigDecimal OVERTIME_FARE = new BigDecimal("1.2");
     private static final BigDecimal WAITING_UNIT_PRICE = new BigDecimal("0.25");
 
-    public String calculateTaxiFree(String filePath) throws NoSuchFieldException {
-        TaxiDistanceAndTime taxiDistanceAndTime = FileAnalys.analysFiles(filePath);
+    public String calculateTaxiFree(String filePath) throws NoSuchFieldException, IOException {
+        final List<String> fileContent = FileAnalys.getFileContent(filePath);
+        final List<Pair<BigDecimal, BigDecimal>> distanceAndTime = TaxiDistanceAndTime.getDistanceAndTimeInString(fileContent);
         String totalFree = "";
-        List<Pair<BigDecimal, BigDecimal>> distanceAndTime = taxiDistanceAndTime.getDistanceAndTime();
         String reduce = distanceAndTime.stream().reduce(totalFree,
                 (string, pair) -> {
                     BigDecimal free = calculate(pair.getLeft()).add(calculateWaitingFree(pair.getRight())).setScale(0, BigDecimal.ROUND_HALF_UP);
                     return string + "收费" + free.toString() + "元\n";
-                }, (s1, s2) -> {
-                    return "";
-                });
+                }, (s1, s2) -> { return "";});
         return reduce;
     };
 
