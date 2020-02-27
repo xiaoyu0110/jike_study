@@ -1,33 +1,24 @@
 package com.jiker.keju;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileAnalys {
 
-    public static List<String> getFileContent(String filePath) throws NoSuchFieldException,IOException {
-        File file = new File(filePath);
-        if(file.exists() && file.isFile()){
-            List<String> fileLines = readFile(file);
-            return fileLines;
-        }else {
-            throw new NoSuchFieldException("找不到文件");
-        }
-    }
-
-    private static List<String> readFile(File file) throws FileNotFoundException {
-        List<String> lines = new ArrayList<>() ;
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file))){
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                lines.add(line);
-            }
+    public static List<String> getFileContent(String filePath)  {
+        List<String> fileLines = null;
+        try (
+            Stream<String> stream = Files.lines(Paths.get(filePath))) {
+            fileLines = stream.collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return lines;
-    }
 
+        return fileLines;
+    }
 
 }

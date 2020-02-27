@@ -20,15 +20,16 @@ public class TaxiDistanceAndTime {
 
     private static Pair<BigDecimal, BigDecimal> getJourneyAndTime(String textLine){
         Matcher matcher = pattern.matcher(textLine);
-        BigDecimal left = null;
-        BigDecimal right = null;
-        if(matcher.find()){
-            left = new BigDecimal(matcher.group());
-        }
-        if(matcher.find()){
-            right = new BigDecimal(matcher.group());
-        }
+        BigDecimal left = getBigDecimal(matcher);;
+        BigDecimal right = getBigDecimal(matcher);;
         return new Pair<>(left,right);
+    }
+
+    private static BigDecimal getBigDecimal(Matcher matcher) {
+        if (matcher.find()) {
+            return new BigDecimal(matcher.group());
+        }
+        return null;
     }
 
 }

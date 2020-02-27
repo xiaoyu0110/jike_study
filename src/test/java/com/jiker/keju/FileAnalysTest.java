@@ -21,11 +21,4 @@ public class FileAnalysTest {
         Assert.assertEquals("第一行第二行",out);
     }
 
-    /*测试文件不存在*/
-    @Test(expected = NoSuchFieldException.class)
-    public void test_file_content_file_does_not_exit() throws NoSuchFieldException, IOException {
-        List<String> fileContent = null;
-        fileContent = FileAnalys.getFileContent("src/main/resources/read2.txt");
-    }
-
 }
