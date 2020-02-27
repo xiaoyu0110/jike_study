@@ -23,7 +23,6 @@ public class TripalCalculate {
                 }, (s1, s2) -> { return "";});
         return reduce;
     };
-
     public BigDecimal calculate(BigDecimal distance) {
         BigDecimal free = TAXI_FARE;
         if (distance.compareTo(TAXI_START_DISTENCE) > 0){
@@ -34,7 +33,6 @@ public class TripalCalculate {
         }
         return free;
     }
-
     private BigDecimal getMonay(BigDecimal unitPrice, BigDecimal distance,int level){
         BigDecimal priceDistance = distance;
        if( level ==1 ){
@@ -45,7 +43,6 @@ public class TripalCalculate {
        }
         return priceDistance.multiply(unitPrice);
     }
-
     public BigDecimal calculateWaitingFree(BigDecimal waitingTime) {
         if(waitingTime == null ) return BigDecimal.ZERO;
         return WAITING_UNIT_PRICE.multiply(waitingTime);
