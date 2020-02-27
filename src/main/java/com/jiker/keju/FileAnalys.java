@@ -2,8 +2,7 @@ package com.jiker.keju;
 
 import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,7 @@ public class FileAnalys {
         File file = new File(filePath);
         if(file.exists() && file.isFile()){
             try {
-                List<String> fileLines = FileUtils.readLines(file);
+                List<String> fileLines = readFile(file);
                 return fileLines;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -35,6 +34,21 @@ public class FileAnalys {
         }
         return null;
     }
+
+    private static List<String> readFile(File file) throws FileNotFoundException {
+        List<String> lines = null ;
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file))){
+            lines = new ArrayList<>();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lines;
+    }
+
     public static Pair<BigDecimal, BigDecimal> getJourneyAndTime(String textLine){
         Matcher matcher = pattern.matcher(textLine);
         BigDecimal left = null;
