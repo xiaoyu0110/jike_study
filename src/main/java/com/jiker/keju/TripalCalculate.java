@@ -27,21 +27,23 @@ public class TripalCalculate {
     public BigDecimal calculate(BigDecimal distance) {
         BigDecimal free = TAXI_FARE;
         if (distance.compareTo(TAXI_START_DISTENCE) > 0){
-            free = free.add(getMonay(UNIT_PRICE,distance.subtract(TAXI_START_DISTENCE),TAXI_OVER__DISTENCE));
+            free = free.add(getMonay(UNIT_PRICE,distance,1));
         }
         if (distance.compareTo(TAXI_OVER__DISTENCE) > 0){
-            free = free.add(getMonay(OVERTIME_FARE,distance.subtract(TAXI_OVER__DISTENCE),null));
+            free = free.add(getMonay(OVERTIME_FARE,distance,2));
         }
         return free;
     }
 
-    private BigDecimal getMonay(BigDecimal unitPrice, BigDecimal distance,BigDecimal farthestistance){
-        BigDecimal priceDistance = distance.subtract(TAXI_START_DISTENCE);
-        if(farthestistance != null){
-            priceDistance = distance.compareTo(farthestistance)<=0 ? distance : farthestistance;
-        }
+    private BigDecimal getMonay(BigDecimal unitPrice, BigDecimal distance,int level){
+        BigDecimal priceDistance = distance;
+       if( level ==1 ){
+           priceDistance = priceDistance.compareTo(TAXI_OVER__DISTENCE) <= 0 ? priceDistance : TAXI_OVER__DISTENCE ;
+           priceDistance = priceDistance.subtract(TAXI_START_DISTENCE);
+       }else {
+           priceDistance = priceDistance.subtract(TAXI_OVER__DISTENCE);
+       }
         return priceDistance.multiply(unitPrice);
-
     }
 
     public BigDecimal calculateWaitingFree(BigDecimal waitingTime) {
