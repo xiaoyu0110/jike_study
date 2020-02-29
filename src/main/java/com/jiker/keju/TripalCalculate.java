@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.Bidi;
 import java.util.List;
-
 public class TripalCalculate {
     private static final BigDecimal TAXI_START_DISTENCE = new BigDecimal("2");
     private static final BigDecimal TAXI_FARE = new BigDecimal("6");
@@ -12,10 +11,11 @@ public class TripalCalculate {
     private static final BigDecimal TAXI_OVER__DISTENCE = new BigDecimal("8");
     private static final BigDecimal OVERTIME_FARE = new BigDecimal("1.2");
     private static final BigDecimal WAITING_UNIT_PRICE = new BigDecimal("0.25");
-
+    private static final TaxiDistanceAndTime TAXI_DISTANCE_AND_TIME = new TaxiDistanceAndTime();
+    private static final FileAnalys FILE_ANALYS = new FileAnalys();
     public String calculateTaxiFree(String filePath) throws NoSuchFieldException, IOException {
-        final List<String> fileContent = FileAnalys.getFileContent(filePath);
-        final List<Pair<BigDecimal, BigDecimal>> distanceAndTime = TaxiDistanceAndTime.getDistanceAndTimeInString(fileContent);
+        final List<String> fileContent = FILE_ANALYS.getFileContent(filePath);
+        final List<Pair<BigDecimal, BigDecimal>> distanceAndTime = TAXI_DISTANCE_AND_TIME.getDistanceAndTimeInString(fileContent);
         String reduce = distanceAndTime.stream().reduce("",
                 (string, pair) -> {
                     BigDecimal free = calculate(pair.getLeft()).add(calculateWaitingFree(pair.getRight())).setScale(0, BigDecimal.ROUND_HALF_UP);
