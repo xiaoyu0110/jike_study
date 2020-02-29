@@ -23,7 +23,8 @@ public class TaxiDistanceAndTimeTest {
         String str = "aaa234dadaf456";
         ArrayList<String> strings = new ArrayList<>();
         strings.add(str);
-        final List<Pair<BigDecimal, BigDecimal>> distanceAndTimeInString = TaxiDistanceAndTime.getDistanceAndTimeInString(strings);
+        TaxiDistanceAndTime TAXI_DISTANCE_AND_TIME = new TaxiDistanceAndTime() ;
+        final List<Pair<BigDecimal, BigDecimal>> distanceAndTimeInString = TAXI_DISTANCE_AND_TIME.getDistanceAndTimeInString(strings);
         Assert.assertEquals("234",distanceAndTimeInString.get(0).getLeft().toString());
         Assert.assertEquals("456",distanceAndTimeInString.get(0).getRight().toString());
     }
@@ -33,7 +34,8 @@ public class TaxiDistanceAndTimeTest {
         String str = "aaadada";
         ArrayList<String> strings = new ArrayList<>();
         strings.add(str);
-        final List<Pair<BigDecimal, BigDecimal>> distanceAndTimeInString = TaxiDistanceAndTime.getDistanceAndTimeInString(strings);
+        TaxiDistanceAndTime TAXI_DISTANCE_AND_TIME = new TaxiDistanceAndTime() ;
+        final List<Pair<BigDecimal, BigDecimal>> distanceAndTimeInString = TAXI_DISTANCE_AND_TIME.getDistanceAndTimeInString(strings);
         Assert.assertEquals(null,distanceAndTimeInString.get(0).getLeft());
         Assert.assertEquals(null,distanceAndTimeInString.get(0).getRight());
     }
